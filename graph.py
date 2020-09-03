@@ -9,19 +9,19 @@ class wavewall:
     def __init__(self,url):
         self.url = url
 
-    def bg(self):
+    def bg(self,url):
         pass
 
-    def graph(self,src,clr):
-        src = src
+    def graph(self,name,color):
+        src = name
 
         audio = AudioSegment.from_file(src)
         data = np.fromstring(audio._data, np.int16)
         fs = audio.frame_rate
-        COLOR = clr
+        COLOR = color
 
-        BARS = 500
-        BAR_HEIGHT = 1000
+        BARS = 10000
+        BAR_HEIGHT = 8000
         LINE_WIDTH = 5
 
         length = len(data)
@@ -61,11 +61,23 @@ class wavewall:
 
             current_x = current_x + LINE_WIDTH
 
-        im.save('abc.png')
+        return im
 
 
-    def name(self):
-        pass
+    def finalimage(self,fimg):
+        BGWIDTH = 1920  
+        BGHEIGHT = 1080
+        finalimg = Image.new('RGB', (BGWIDTH, BGHEIGHT), (265,165,0))
+        forgimg = fimg
+        nfwidth = BGWIDTH * 0.4
+        fwidth = forgimg.size[0]
+        fheight = forgimg.size[1]
+        nfheight = (nfwidth * fheight) / fwidth
+        forgimg = forgimg.resize((int(nfwidth),int(nfheight)), Image.ANTIALIAS)
+        posx = round((BGWIDTH/2)-(nfwidth/2))
+        posy = round((BGHEIGHT/2)-(nfheight/2))
+        finalimg.paste(forgimg, (posx,posy), forgimg)
+        finalimg.save('finalresult.jpg', quality=200)
 
-    def finalimage(self):
-        pass
+
+
