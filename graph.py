@@ -1,6 +1,6 @@
 from pydub import AudioSegment
 from matplotlib import pyplot as plot
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageFont
 import numpy as np
 import os
 
@@ -64,10 +64,10 @@ class wavewall:
         return im
 
 
-    def finalimage(self,fimg):
-        BGWIDTH = 1920  
-        BGHEIGHT = 1080
-        finalimg = Image.new('RGB', (BGWIDTH, BGHEIGHT), (265,165,0))
+    def finalimage(self,fimg,BGWIDTH,BGHEIGHT,name):
+        #BGWIDTH = 1080  
+        #BGHEIGHT = 1920
+        finalimg = Image.new('RGB', (BGWIDTH, BGHEIGHT), (0,0,0))
         forgimg = fimg
         nfwidth = BGWIDTH * 0.4
         fwidth = forgimg.size[0]
@@ -77,7 +77,11 @@ class wavewall:
         posx = round((BGWIDTH/2)-(nfwidth/2))
         posy = round((BGHEIGHT/2)-(nfheight/2))
         finalimg.paste(forgimg, (posx,posy), forgimg)
-        finalimg.save('finalresult.jpg', quality=200)
+        font = ImageFont.truetype(font='centurybold.ttf', size=int(BGWIDTH/42))
+        twidth = font.getsize(name)[0]
+        draw = ImageDraw.Draw(finalimg)
+        draw.text((int((BGWIDTH/2)-(twidth/2)), int(posy+nfheight+30)), name, (255,255,255), font=font)
+        finalimg.save('frsz.jpg', quality=200)
 
 
 
