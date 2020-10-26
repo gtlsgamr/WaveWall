@@ -20,9 +20,9 @@ class wavewall:
         fs = audio.frame_rate
         COLOR = color
 
-        BARS = 10000
-        BAR_HEIGHT = 8000
-        LINE_WIDTH = 5
+        BARS = 100
+        BAR_HEIGHT = 200
+        LINE_WIDTH = 12
 
         length = len(data)
         RATIO = length/BARS
@@ -65,8 +65,6 @@ class wavewall:
 
 
     def finalimage(self,fimg,BGWIDTH,BGHEIGHT,name):
-        #BGWIDTH = 1080  
-        #BGHEIGHT = 1920
         finalimg = Image.new('RGB', (BGWIDTH, BGHEIGHT), (0,0,0))
         forgimg = fimg
         nfwidth = BGWIDTH * 0.4
@@ -80,7 +78,7 @@ class wavewall:
         font = ImageFont.truetype(font='centurybold.ttf', size=int(BGWIDTH/42))
         twidth = font.getsize(name)[0]
         draw = ImageDraw.Draw(finalimg)
-        draw.text((int((BGWIDTH/2)-(twidth/2)), int(posy+nfheight+30)), name, (255,255,255), font=font)
+        draw.text((int((BGWIDTH/2)-(twidth/2)), int(posy+nfheight+40)), name, (255,255,255), font=font)
         finalimg.save('frsz.jpg', quality=200)
 
 
